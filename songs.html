@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rashmika Vault | Discography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --red: #ff0000;
+      --dark-red: #cc0000;
+      --bg: #0a0a0a;
+      --card-bg: #111111;
+      --text: #f8f8f8;
+      --text-light: #aaaaaa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Glow effect for interactive elements */
+    .glow-on-hover {
+      transition: text-shadow 0.3s, box-shadow 0.3s;
+    }
+    .glow-on-hover:hover {
+      text-shadow: 0 0 10px var(--red);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--red);
+      border-radius: 4px;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0) 100%);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: 1px;
+      position: relative;
+    }
+    .logo::after {
+      content: "®";
+      position: absolute;
+      font-size: 0.6rem;
+      top: -5px;
+      right: -12px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
+    .nav-links li a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      background: var(--red);
+      bottom: -3px;
+      left: 0;
+      transition: width 0.3s;
+    }
+    .nav-links li a:hover::after {
+      width: 100%;
+    }
+    .nav-links li a.active {
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(255,0,0,0.1) 0%, rgba(10,10,10,1) 70%);
+      z-index: -1;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #ffffff, var(--red));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 700px;
+    }
+
+    /* Music Grid */
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      padding: 0 5%;
+      margin-bottom: 5rem;
+    }
+
+    /* Album Card */
+    .album-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .album-card:hover {
+      transform: translateY(-10px);
+    }
+    .album-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,0,0,0.1) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .album-card:hover::before {
+      opacity: 1;
+    }
+
+    .album-art {
+      height: 200px;
+      background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .album-art::after {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: radial-gradient(circle, rgba(255,0,0,0.2) 0%, transparent 70%);
+      animation: rotate 15s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .album-art i {
+      font-size: 4rem;
+      color: rgba(255,255,255,0.1);
+      z-index: 1;
+    }
+
+    .album-info {
+      padding: 1.5rem;
+    }
+    .album-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .album-year {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+    .album-status {
+      background: rgba(255, 0, 0, 0.2);
+      color: var(--red);
+      padding: 0.2rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .track-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+    .track {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .track:hover {
+      background: rgba(255,255,255,0.03);
+    }
+    .track-number {
+      color: var(--text-light);
+      width: 25px;
+      font-size: 0.8rem;
+    }
+    .track-title {
+      flex-grow: 1;
+      font-size: 0.95rem;
+    }
+    .track-feature {
+      color: var(--red);
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+      font-weight: 500;
+    }
+    .track-duration {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin-left: 1rem;
+    }
+    .live-venue {
+      display: block;
+      color: var(--text-light);
+      font-size: 0.75rem;
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+
+    /* Discontinued Album */
+    .discontinued .album-art {
+      filter: grayscale(100%);
+    }
+    .discontinued .album-art::after {
+      background: radial-gradient(circle, rgba(100,100,100,0.2) 0%, transparent 70%);
+    }
+    .discontinued .album-title {
+      color: var(--text-light);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 3rem 5%;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2rem;
+    }
+    .footer p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    .footer a {
+      color: var(--red);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .music-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">RASHMIKA VAULT</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="merch.html">Merch</a></li>
+        <li><a href="songs.html" class="active">Songs</a></li>
+        <li><a href="tours.html">Tours</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>DISCOGRAPHY</h1>
+    <p>Official releases and exclusive recordings from the vault</p>
+  </section>
+
+  <div class="music-grid">
+    <!-- Under the Wood Album -->
+    <div class="album-card glow-on-hover">
+      <div class="album-art">
+        <i class="fas fa-compact-disc"></i>
+      </div>
+      <div class="album-info">
+        <div class="album-title">
+          <span>UNDER THE WOOD</span>
+          <span class="album-year">2020-2021</span>
+        </div>
+        <ul class="track-list">
+          <li class="track">
+            <span class="track-number">i.</span>
+            <span class="track-title">Killer</span>
+            <span class="track-duration">3:42</span>
+          </li>
+          <li class="track">
+            <span class="track-number">ii.</span>
+            <span class="track-title">Paper Hurt Us</span>
+            <span class="track-duration">4:15</span>
+          </li>
+          <li class="track">
+            <span class="track-number">iii.</span>
+            <span class="track-title">Nothing</span>
+            <span class="track-duration">3:58</span>
+          </li>
+          <li class="track">
+            <span class="track-number">iv.</span>
+            <span class="track-title">God Heals <span class="track-feature">ft. Rohit Kshetri</span></span>
+            <span class="track-duration">5:22</span>
+          </li>
+          <li class="track">
+            <span class="track-number">v.</span>
+            <span class="track-title">Happiness in Him <span class="track-feature">ft. Shova Luitel</span></span>
+            <span class="track-duration">4:37</span>
+          </li>
+          <li class="track">
+            <span class="track-number">vi.</span>
+            <span class="track-title">Hey Dude</span>
+            <span class="track-duration">3:15</span>
+          </li>
+          <li class="track">
+            <span class="track-number">vii.</span>
+            <span class="track-title">Life On Us <span class="track-feature">ft. Shova Luitel</span></span>
+            <span class="track-duration">4:50</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RoNiKa Album -->
+    <div class="album-card glow-on-hover discontinued">
+      <div class="album-art">
+        <i class="fas fa-ban"></i>
+      </div>
+      <div class="album-info">
+        <div class="album-title">
+          <span>RONIKA</span>
+          <span class="album-status">DISCONTINUED</span>
+        </div>
+        <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.5rem;">
+          This album has been permanently withdrawn from circulation.
+        </p>
+      </div>
+    </div>
+
+    <!-- Me and Him Album -->
+    <div class="album-card glow-on-hover">
+      <div class="album-art">
+        <i class="fas fa-compact-disc"></i>
+      </div>
+      <div class="album-info">
+        <div class="album-title">
+          <span>ME AND HIM</span>
+          <span class="album-year">2024-2025</span>
+        </div>
+        <ul class="track-list">
+          <li class="track">
+            <span class="track-number">i.</span>
+            <span class="track-title">Sunrise</span>
+            <span class="track-duration">3:28</span>
+          </li>
+          <li class="track">
+            <span class="track-number">ii.</span>
+            <span class="track-title">Beneath The River <span class="track-feature">ft. Ujjwal Shrestha</span></span>
+            <span class="track-duration">4:12</span>
+          </li>
+          <li class="track">
+            <span class="track-number">iii.</span>
+            <span class="track-title">I Was Made For Lovin' You</span>
+            <span class="track-duration">3:45</span>
+          </li>
+          <li class="track">
+            <span class="track-number">iv.</span>
+            <span class="track-title">My Love For You</span>
+            <span class="track-duration">4:03</span>
+          </li>
+          <li class="track">
+            <span class="track-number">v.</span>
+            <span class="track-title">More Love</span>
+            <span class="track-duration">5:18</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Live Performances -->
+    <div class="album-card glow-on-hover">
+      <div class="album-art">
+        <i class="fas fa-microphone-alt"></i>
+      </div>
+      <div class="album-info">
+        <div class="album-title">
+          <span>LIVE PERFORMANCES</span>
+        </div>
+        <ul class="track-list">
+          <li class="track">
+            <span class="track-title">Fix You (Coldplay Cover)</span>
+            <span class="live-venue">Mumbai, India - 2022</span>
+          </li>
+          <li class="track">
+            <span class="track-title">Slow Hands (Rohit Kshetri Cover)</span>
+            <span class="live-venue">Delhi, India - 2023</span>
+          </li>
+          <li class="track">
+            <span class="track-title">Hurt Me More (Rohit Kshetri Cover)</span>
+            <span class="live-venue">Bangalore, India - 2021</span>
+          </li>
+          <li class="track">
+            <span class="track-title">Little Things (One Direction Cover)</span>
+            <span class="live-venue">Kolkata, India - 2020</span>
+          </li>
+          <li class="track">
+            <span class="track-title">Let Her Go (Passenger Cover)</span>
+            <span class="live-venue">Hyderabad, India - 2022</span>
+          </li>
+          <li class="track">
+            <span class="track-title">My Beautiful (RaYerZ Cover)</span>
+            <span class="live-venue">Chennai, India - 2023</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Acoustic Sessions -->
+    <div class="album-card glow-on-hover">
+      <div class="album-art">
+        <i class="fas fa-guitar"></i>
+      </div>
+      <div class="album-info">
+        <div class="album-title">
+          <span>ACOUSTIC SESSIONS</span>
+        </div>
+        <ul class="track-list">
+          <li class="track">
+            <span class="track-title">Sunrise <span class="track-feature">ft. Shova Luitel</span></span>
+          </li>
+          <li class="track">
+            <span class="track-title">Life On Us <span class="track-feature">ft. Shova Luitel</span></span>
+          </li>
+          <li class="track">
+            <span class="track-title">My Love For You</span>
+          </li>
+          <li class="track">
+            <span class="track-title">There's Nothing Holding Me Back (Shawn Mendes Cover)</span>
+          </li>
+          <li class="track">
+            <span class="track-title">Easy On Me (Adele Cover)</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Full recordings available only to verified Vault members. <a href="#">Join now</a> for exclusive access.</p>
+  </footer>
+
+  <script>
+    // Interactive elements
+    document.querySelectorAll('.album-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const albumTitle = this.querySelector('.album-title span').textContent;
+        alert(`Preparing playback for: ${albumTitle}\n\n(Full access requires membership verification)`);
+      });
+    });
+  </script>
+</body>
+</html>

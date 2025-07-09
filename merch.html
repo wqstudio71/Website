@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rashmika Vault | Exclusive Merchandise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #e50914;
+      --primary-dark: #b2070f;
+      --secondary: #1a1a1a;
+      --dark: #0a0a0a;
+      --light: #f8f8f8;
+      --gray: #6e6e6e;
+      --dark-gray: #222;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background-color: rgba(10, 10, 10, 0.98);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo::before {
+      content: "✦";
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links li a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-links li a:hover::after,
+    .nav-links li a.active::after {
+      width: 100%;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--primary);
+    }
+
+    section.merch {
+      padding: 7rem 5% 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .hero-text {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #ff4c4c, #e50914);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      color: var(--gray);
+      text-align: center;
+      margin: 0 auto 2rem;
+      max-width: 600px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .search-filter {
+      display: flex;
+      margin-bottom: 3rem;
+      gap: 1rem;
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto 3rem;
+    }
+
+    .search-box {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      background: rgba(30, 30, 30, 0.8);
+      color: white;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+    }
+
+    .search-box:focus {
+      outline: none;
+      box-shadow: 0 4px 20px rgba(229, 9, 20, 0.3);
+      background: rgba(40, 40, 40, 0.8);
+    }
+
+    .filter-btn {
+      background: rgba(30, 30, 30, 0.8);
+      color: white;
+      border: none;
+      padding: 0 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .filter-btn:hover {
+      background: rgba(50, 50, 50, 0.8);
+    }
+
+    .filter-btn i {
+      font-size: 1rem;
+    }
+
+    .filter-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(30, 30, 30, 0.98);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      width: 300px;
+      z-index: 100;
+      display: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .filter-dropdown.show {
+      display: block;
+    }
+
+    .filter-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-group h4 {
+      margin-bottom: 0.8rem;
+      color: var(--gray);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-option {
+      background: rgba(50, 50, 50, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--light);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-option:hover {
+      background: rgba(229, 9, 20, 0.2);
+      border-color: var(--primary);
+    }
+
+    .filter-option.active {
+      background: rgba(229, 9, 20, 0.3);
+      border-color: var(--primary);
+      color: white;
+      font-weight: 500;
+    }
+
+    .category-section {
+      margin-bottom: 4rem;
+    }
+
+    .category-title {
+      font-size: 1.8rem;
+      color: var(--light);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      display: inline-block;
+    }
+
+    .category-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .merch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .merch-item {
+      background: rgba(30, 30, 30, 0.6);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .merch-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(229, 9, 20, 0.03), transparent);
+      z-index: -1;
+    }
+
+    .merch-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(229, 9, 20, 0.2);
+      border-color: rgba(229, 9, 20, 0.3);
+    }
+
+    .sold-out-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(10, 10, 10, 0.9);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      border: 1px solid var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .merch-item h3 {
+      margin: 0.5rem 0 1rem;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--light);
+    }
+
+    .merch-item p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--primary);
+      margin: 1.5rem 0;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+    }
+
+    .notify-btn {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      transition: var(--transition);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .notify-btn:hover {
+      background: rgba(229, 9, 20, 0.1);
+      letter-spacing: 1px;
+    }
+
+    .notice {
+      margin-top: 5rem;
+      color: var(--gray);
+      text-align: center;
+      font-size: 0.95rem;
+      padding: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(30, 30, 30, 0.5);
+      max-width: 800px;
+      margin: 5rem auto 0;
+    }
+
+    .notice p {
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .notice a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border-bottom: 1px dashed var(--primary);
+      padding-bottom: 2px;
+    }
+
+    .notice a:hover {
+      border-bottom-style: solid;
+    }
+
+    /* Loading animation */
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      color: var(--gray);
+      animation: pulse 1.5s infinite;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .merch-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1.2rem 5%;
+      }
+      
+      .nav-links {
+        gap: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .search-filter {
+        flex-direction: column;
+      }
+      
+      .filter-dropdown {
+        width: 100%;
+        right: auto;
+        left: 0;
+      }
+      
+      .merch-item {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+      
+      .nav-links {
+        gap: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .category-title {
+        font-size: 1.5rem;
+      }
+      
+      .merch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Rashmika Vault</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="merch.html" class="active">Merch</a></li>
+        <li><a href="songs.html">Songs</a></li>
+        <li><a href="tours.html">Tours</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="merch">
+    <div class="hero-text">
+      <h1>Exclusive Collectibles</h1>
+      <p class="subtitle">Highly sought-after items from our private collection, available only to verified members of the Rashmika Vault Collector's Circle</p>
+    </div>
+
+    <div class="search-filter">
+      <input type="text" class="search-box" placeholder="Search items..." id="searchInput">
+      <button class="filter-btn" id="filterBtn">
+        <i class="fas fa-sliders-h"></i> Filters
+      </button>
+      <div class="filter-dropdown" id="filterDropdown">
+        <div class="filter-group">
+          <h4>Categories</h4>
+          <div class="filter-options">
+            <div class="filter-option active" data-category="all">All</div>
+            <div class="filter-option" data-category="apparel">Apparel</div>
+            <div class="filter-option" data-category="collectibles">Collectibles</div>
+            <div class="filter-option" data-category="music">Music</div>
+          </div>
+        </div>
+        <div class="filter-group">
+          <h4>Price Range</h4>
+          <div class="filter-options">
+            <div class="filter-option" data-price="all">All Prices</div>
+            <div class="filter-option" data-price="0-5000">Under ₹5K</div>
+            <div class="filter-option" data-price="5000-10000">₹5K-10K</div>
+            <div class="filter-option" data-price="10000+">Over ₹10K</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="categoryContainer">
+      <!-- Categories will be loaded here -->
+    </div>
+
+    <div class="notice">
+      <p>Due to our exclusive collector's agreement and privacy policy, we're unable to display product images publicly. Authentic photographs are available only to verified members of the Rashmika Vault Collector's Circle.</p>
+      <p>For access to the visual archive, please contact our <a href="#">curation team</a> with your collector credentials.</p>
+    </div>
+  </section>
+
+  <script>
+    const merchItems = [
+      // Apparel
+      { name: "Signature Hoodie", price: 3499, desc: "Limited edition with embroidery", category: "apparel" },
+      { name: "Tour Sweatshirt", price: 2999, desc: "Commemorative tour design", category: "apparel" },
+      { name: "Lyric T-Shirt", price: 1999, desc: "Featuring handwritten lyrics", category: "apparel" },
+      { name: "Denim Jacket", price: 4999, desc: "Hand-painted tour dates", category: "apparel" },
+      { name: "Velvet Tracksuit", price: 6999, desc: "Limited lounge collection", category: "apparel" },
+      { name: "Signature Cap", price: 1499, desc: "Adjustable snapback", category: "apparel" },
+      
+      // Collectibles
+      { name: "Signed Poster", price: 4999, desc: "Hand-signed concert poster", category: "collectibles" },
+      { name: "Personalized Letter", price: 8999, desc: "Handwritten note", category: "collectibles" },
+      { name: "Tour Bag", price: 5999, desc: "Limited production", category: "collectibles" },
+      { name: "Enamel Pin Set", price: 2499, desc: "12 exclusive designs", category: "collectibles" },
+      { name: "Ticket Stubs", price: 3499, desc: "Authentic collection", category: "collectibles" },
+      { name: "Backstage Pass", price: 4999, desc: "Replica VIP pass", category: "collectibles" },
+      
+      // Music
+      { name: "Stage Guitar", price: 89999, desc: "Performance-used instrument", category: "music" },
+      { name: "Vinyl Collection", price: 12999, desc: "Complete discography", category: "music" },
+      { name: "Lyric Manuscript", price: 14999, desc: "Original song drafts", category: "music" },
+      { name: "Gold Record", price: 29999, desc: "Commemorative plaque", category: "music" },
+      { name: "Studio Headphones", price: 15999, desc: "Professional monitors", category: "music" },
+      { name: "Microphone", price: 11999, desc: "Stage-used replica", category: "music" }
+    ];
+
+    // Filter state
+    let currentFilters = {
+      category: 'all',
+      price: 'all'
+    };
+
+    // Initialize page
+    function initPage() {
+      renderCategories();
+      setupEventListeners();
+    }
+
+    // Render category sections
+    function renderCategories() {
+      const container = document.getElementById('categoryContainer');
+      container.innerHTML = '';
+      
+      const categories = {
+        apparel: 'Apparel Collection',
+        collectibles: 'Exclusive Collectibles',
+        music: 'Music Memorabilia'
+      };
+      
+      Object.entries(categories).forEach(([key, title]) => {
+        const items = merchItems.filter(item => item.category === key);
+        
+        const sectionHTML = `
+          <div class="category-section" data-category="${key}">
+            <h2 class="category-title">${title}</h2>
+            <div class="merch-grid" id="${key}Grid"></div>
+          </div>`;
+        
+        container.innerHTML += sectionHTML;
+      });
+      
+      filterItems();
+    }
+
+    // Filter items based on current filters
+    function filterItems() {
+      let filteredItems = [...merchItems];
+      
+      // Apply category filter
+      if (currentFilters.category !== 'all') {
+        filteredItems = filteredItems.filter(item => item.category === currentFilters.category);
+      }
+      
+      // Apply price filter
+      if (currentFilters.price !== 'all') {
+        const [min, max] = currentFilters.price.split('-').map(Number);
+        filteredItems = filteredItems.filter(item => {
+          if (currentFilters.price === '10000+') {
+            return item.price >= 10000;
+          }
+          return item.price >= min && item.price <= (max || Infinity);
+        });
+      }
+      
+      // Apply search filter
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      if (searchTerm) {
+        filteredItems = filteredItems.filter(item => 
+          item.name.toLowerCase().includes(searchTerm) || 
+          item.desc.toLowerCase().includes(searchTerm)
+        );
+      }
+      
+      // Group by category
+      const groupedItems = filteredItems.reduce((acc, item) => {
+        if (!acc[item.category]) acc[item.category] = [];
+        acc[item.category].push(item);
+        return acc;
+      }, {});
+      
+      // Render each category
+      Object.keys(groupedItems).forEach(category => {
+        const grid = document.getElementById(`${category}Grid`);
+        if (grid) {
+          grid.innerHTML = '';
+          groupedItems[category].forEach(item => {
+            grid.innerHTML += createItemHTML(item);
+          });
+        }
+      });
+      
+      // Show/hide empty categories
+      document.querySelectorAll('.category-section').forEach(section => {
+        const category = section.dataset.category;
+        const hasItems = groupedItems[category] && groupedItems[category].length > 0;
+        section.style.display = hasItems || currentFilters.category === 'all' ? 'block' : 'none';
+      });
+    }
+
+    // Create item HTML
+    function createItemHTML(item) {
+      return `
+        <div class="merch-item">
+          <span class="sold-out-badge">Sold Out</span>
+          <h3>${item.name}</h3>
+          <p>${item.desc}</p>
+          <div class="price">₹${item.price.toLocaleString('en-IN')}</div>
+          <button class="notify-btn">Notify if available</button>
+        </div>`;
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Filter button toggle
+      document.getElementById('filterBtn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('filterDropdown').classList.toggle('show');
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function() {
+        document.getElementById('filterDropdown').classList.remove('show');
+      });
+      
+      // Category filter
+      document.querySelectorAll('[data-category]').forEach(option => {
+        option.addEventListener('click', function() {
+          if (this.dataset.category === 'all') {
+            currentFilters.category = 'all';
+          } else {
+            currentFilters.category = this.dataset.category;
+          }
+          
+          // Update active states
+          document.querySelectorAll('[data-category]').forEach(opt => {
+            opt.classList.toggle('active', opt.dataset.category === currentFilters.category || 
+              (opt.dataset.category === 'all' && currentFilters.category === 'all'));
+          });
+          
+          filterItems();
+        });
+      });
+      
+      // Price filter
+      document.querySelectorAll('[data-price]').forEach(option => {
+        option.addEventListener('click', function() {
+          currentFilters.price = this.dataset.price;
+          
+          // Update active states
+          document.querySelectorAll('[data-price]').forEach(opt => {
+            opt.classList.toggle('active', opt.dataset.price === currentFilters.price);
+          });
+          
+          filterItems();
+        });
+      });
+      
+      // Search input
+      document.getElementById('searchInput').addEventListener('input', filterItems);
+      
+      // Notify buttons
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('notify-btn')) {
+          const itemName = e.target.closest('.merch-item').querySelector('h3').textContent;
+          alert(`We'll notify you when "${itemName}" is restocked. Please ensure your notification preferences are updated in your account settings.`);
+        }
+      });
+    }
+
+    // Initialize the page when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+</body>
+</html>

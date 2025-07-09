@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tours - Rashmika Luitel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #f8f8f8;
+            line-height: 1.8;
+            background-color: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 0, 0, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 0, 0, 0.05) 0%, transparent 25%);
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(15, 15, 15, 0.88);
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background-color: rgba(10, 10, 10, 0.95);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff0000;
+            letter-spacing: 1.5px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff0000;
+            border-radius: 50%;
+            right: -12px;
+            bottom: 12px;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links li a {
+            color: #f8f8f8;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            color: #ff0000;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            bottom: -4px;
+            left: 0;
+            transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .nav-links li a:hover::after,
+        .nav-links li a.active::after {
+            width: 100%;
+        }
+
+        /* ===== TOURS SECTION ===== */
+        .tours {
+            padding: 6rem 5% 4rem;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(20, 0, 0, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .tours::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 0, 0, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h1::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff0000, transparent);
+            bottom: -10px;
+            left: 20%;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tour-years {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .year-btn {
+            padding: 0.6rem 1.5rem;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .year-btn:hover, .year-btn.active {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ffffff;
+            border-color: #ff0000;
+        }
+
+        .year-btn.active {
+            background: rgba(255, 0, 0, 0.3);
+        }
+
+        .tour-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tour-item {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tour-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tour-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .tour-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15);
+            border-color: rgba(255, 0, 0, 0.5);
+        }
+
+        .tour-date {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ff0000;
+            margin-bottom: 0.5rem;
+        }
+
+        .tour-venue {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .tour-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .tour-location i {
+            color: #ff0000;
+        }
+
+        .tour-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .tour-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.6rem 1.5rem;
+            background: rgba(255, 0, 0, 0.2);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .tour-btn:hover {
+            background: rgba(255, 0, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .tour-btn i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .tour-btn:hover i {
+            transform: translateX(3px);
+        }
+
+        .no-tours {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff0000;
+            transform: translateY(-3px);
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1.2rem;
+            }
+
+            .nav-links {
+                margin-top: 1.2rem;
+                gap: 1.5rem;
+            }
+
+            .section-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .tour-venue {
+                font-size: 1.2rem;
+            }
+
+            .tour-item {
+                padding: 1.2rem;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tour-item {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .tour-item:nth-child(1) { animation-delay: 0.1s; }
+        .tour-item:nth-child(2) { animation-delay: 0.2s; }
+        .tour-item:nth-child(3) { animation-delay: 0.3s; }
+        .tour-item:nth-child(4) { animation-delay: 0.4s; }
+        .tour-item:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">WQ Studio & BnT Musiz</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="merch.html">Merch</a></li>
+                <li><a href="songs.html">Songs</a></li>
+                <li><a href="tours.html" class="active">Tours</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Tours Section -->
+    <section class="tours">
+        <div class="section-header">
+            <h1>Tour History</h1>
+            <p>Relive Rashmika Luitel's musical journey across Nepal and India since 2019</p>
+        </div>
+
+        <div class="tour-years">
+            <button class="year-btn active" data-year="all">All</button>
+            <button class="year-btn" data-year="2025">2025</button>
+            <button class="year-btn" data-year="2024">2024</button>
+            <button class="year-btn" data-year="2023">2023</button>
+            <button class="year-btn" data-year="2022">2022</button>
+            <button class="year-btn" data-year="2020">2020</button>
+            <button class="year-btn" data-year="2019">2019</button>
+        </div>
+
+        <div class="tour-list">
+            <!-- 2025 Tours -->
+            <div class="tour-item" data-year="2025">
+                <div class="tour-date">March 5, 2025</div>
+                <h3 class="tour-venue">New Delhi Concert</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New Delhi, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <!-- 2024 Tours -->
+            <div class="tour-item" data-year="2024">
+                <div class="tour-date">December 4, 2024</div>
+                <h3 class="tour-venue">New Delhi Show</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New Delhi, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <div class="tour-item" data-year="2024">
+                <div class="tour-date">August 5, 2024</div>
+                <h3 class="tour-venue">Patna Performance</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Patna, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <div class="tour-item" data-year="2024">
+                <div class="tour-date">March 4, 2024</div>
+                <h3 class="tour-venue">Bangalore Night</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Bangalore, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <!-- 2023 Tours -->
+            <div class="tour-item" data-year="2023">
+                <div class="tour-date">December 1, 2023</div>
+                <h3 class="tour-venue">Bangalore Debut</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Bangalore, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <div class="tour-item" data-year="2023">
+                <div class="tour-date">July 8, 2023</div>
+                <h3 class="tour-venue">New Delhi Encore</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New Delhi, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <div class="tour-item" data-year="2023">
+                <div class="tour-date">February 2, 2023</div>
+                <h3 class="tour-venue">New Delhi Return</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New Delhi, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <!-- 2022 Tours -->
+            <div class="tour-item" data-year="2022">
+                <div class="tour-date">December 7, 2022</div>
+                <h3 class="tour-venue">Pokhara Comeback</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Pokhara, Nepal</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <div class="tour-item" data-year="2022">
+                <div class="tour-date">June 6, 2022</div>
+                <h3 class="tour-venue">Biratnagar Revival</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Biratnagar, Nepal</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <!-- 2020 Tour -->
+            <div class="tour-item" data-year="2020">
+                <div class="tour-date">January 19, 2020</div>
+                <h3 class="tour-venue">Hyderabad Event</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Hyderabad, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <!-- 2019 Tours -->
+            <div class="tour-item" data-year="2019">
+                <div class="tour-date">December 15, 2019</div>
+                <h3 class="tour-venue">Delhi Performance</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Delhi, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <div class="tour-item" data-year="2019">
+                <div class="tour-date">April 2019</div>
+                <h3 class="tour-venue">Mumbai Showcase</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Mumbai, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <div class="tour-item" data-year="2019">
+                <div class="tour-date">March 22, 2019</div>
+                <h3 class="tour-venue">New Delhi Debut</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New Delhi, India</span>
+                </div>
+                <a href="#" class="tour-btn">Sold Out <i class="fas fa-ticket-alt"></i></a>
+            </div>
+
+            <!-- Coming Soon -->
+            <div class="tour-item" data-year="2025">
+                <div class="tour-date">Coming Soon</div>
+                <h3 class="tour-venue">Tour 23 Announcement</h3>
+                <div class="tour-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Stay Tuned!</span>
+                </div>
+                <a href="#" class="tour-btn">Notify Me <i class="fas fa-bell"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://spotify.com" target="_blank"><i class="fab fa-spotify"></i></a>
+        </div>
+        <p>© 2025 Rashmika Luitel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Tour year filtering
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearButtons = document.querySelectorAll('.year-btn');
+            const tourItems = document.querySelectorAll('.tour-item');
+            const noToursMessage = document.createElement('div');
+            noToursMessage.className = 'no-tours';
+            noToursMessage.textContent = 'No tours found for this year';
+            document.querySelector('.tour-list').appendChild(noToursMessage);
+
+            yearButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    yearButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const year = button.dataset.year;
+                    let visibleItems = 0;
+
+                    // Filter tours
+                    tourItems.forEach(item => {
+                        if (year === 'all' || item.dataset.year === year) {
+                            item.style.display = 'block';
+                            visibleItems++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // Show/hide "no tours" message
+                    noToursMessage.style.display = visibleItems === 0 ? 'block' : 'none';
+                });
+            });
+
+            // Animate tour items on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.tour-item').forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
